@@ -40,7 +40,9 @@ function ProbGivenβ(β::Array)
     return βresult
 end
 
-β = [rand(Normal(4,1),5)... ,6]
+β = [rand(1:2,4)... ,6]
+β = [rand(4)... ,6]
+
 b = length(β)
 U = mean(β)*ones(b) + 1*rand(b)
 Sb = permGroup( collect( 1:b ))
