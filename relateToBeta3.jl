@@ -52,7 +52,7 @@ function PMatrix(τ::Array; inSnWithn=nothing)
 end
 function wtOfPerm(τ::Array, D::Array)
     p = 1
-    for i in 1:b
+    for i in 1:length(τ)
         p += D[i]*D[τ[i]]
     end
     return p
@@ -64,18 +64,19 @@ end
 function ProbGivenβ(β::Array)
     b = length(β)
     Sb = permGroup(b)
+    β /= norm(β,1)
     βresult = map(x->wtOfPerm(x,β), Sb)
     βresult /= sum(βresult)
     return βresult
 end
 
 β = [1, 1, 1, 2, 2, 4]
-β .-= mean(β)
-β /= norm(β)
+#β .-= mean(β)
+β /= norm(β,1)
 
 b = length(β)
 U = rand(Normal(1, .5), b)
-U .-= mean(U)
+#U .-= mean(U)
 U /= norm(U,1)
 Sb = permGroup(b)
 
@@ -105,16 +106,27 @@ s = rand(1000)
 (s .- mean( s )) / std(s)
 histogram(s)
 
-dist0 = ProbGivenβ(rand(Normal(0,1),6))
+dist0 = ProbGivenβ(rand(Normal(10,1),6))
 histogram(dist0)
 
-dist10 = ProbGivenβ(rand(Normal(10,1),6))
-histogram!(dist10)
+v = rand(Normal(10,1),7)
+dist10 = ProbGivenβ( v )
+histogram(dist10)
 
-distNeg10 = ProbGivenβ(rand(Normal(-10,1),6))
+distNeg10 = ProbGivenβ(-1*v)
 histogram!(distNeg10)
 
+histogram()
+D = []
+for n in 1:8
+    push!(D, ProbGivenβ( rand(n) ))
+end
 
+histogram(D[2] .- median(D[2]) )
+histogram!(D[3] .- median(D[3]) )
+histogram!(D[4] .- median(D[4]) )
+histogram!(D[5] .- median(D[5]) )
+histogram(D[6] .- median(D[6]) )
 
 
 
