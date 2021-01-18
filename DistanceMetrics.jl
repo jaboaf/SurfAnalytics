@@ -1,7 +1,7 @@
 import JSON
 
 data = Dict()
-open("CleanAllDataCC.txt", "r") do f
+open("Data/CombinedCountries/CleanAllDataCC.txt", "r") do f
     global data
     data = JSON.parse(f)  # parse and transform data
 end
@@ -9,6 +9,7 @@ end
 # some notes
 data :: Dict{String, Any}
 data[somekey] :: Dict{String, Any}
+
 
 origs = map( x -> x["subScoOrig"], values(data) )
 filter!( x -> !("-1" in x), origs)
@@ -19,12 +20,12 @@ unique(map( x -> sort(collect(values(countmap(x)))), origs ))
 
 countmap(map( x -> sort(collect(values(countmap(x)))), origs ))
 #=
-[1, 4]          => 18
 [1, 1, 1, 1, 1] => 3234
-[1, 2, 2]       => 3013
-[2, 3]          => 225
 [1, 1, 1, 2]    => 8284
+[1, 2, 2]       => 3013
 [1, 1, 3]       => 1216
+[2, 3]          => 225
+[1, 4]          => 18
 =#
 
 countmap(map( x -> collect(values(countmap(x))), origs ))
