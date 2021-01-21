@@ -1,0 +1,23 @@
+$(\Omega, \mathcal{F}, \mu)$
+$f(x)$ is the PDF (Probability Density Function) w.r.t. the measure $\mu : \mathcal{F} \rightarrow \mathbb{R}_{\geq 0} $
+\( \forall x \in \mathcal{X} \quad f(x) := e^{\sum_{i=1}^m \tau_i \phi_i(x) - \psi_m(\tau)} \)
+\( \forall x \not\in \mathcal{X} \quad f(x) := 0 \)
+where:
+\( \psi_m(\tau) = \psi_m(\tau_1, \dots, \tau_m) :=  \ln(  \int_{\mathcal{X}} e^{\sum_{i=1}^m \tau_i\phi_i(x)} d\mu )\) because it is "defined by the relation" \( e^{\psi_m(\tau)} = \int_{\mathcal{X}} e^{\sum_{i=1}^m \tau_i\phi_i(x)} d\mu\)
+$\tau \in \mathbb{R}^m$
+$\phi(x) := [\phi_1(x), \dots, \phi_m(x)]^T $ for $x \in \mathcal{X}$
+$\phi_0(x) := 1$
+and $g(x) := [\phi_0(x), \phi_1(x), \dots, \phi_m(x) ]^T $ for $x \in \mathcal{X}$
+
+
+So we have \( f(x) = e^{\sum_{i=1}^m \tau_i \phi_i(x) -  \ln(  \int_{\mathcal{X}} e^{\sum_{i=1}^m \tau_i\phi_i(x)} d\mu ) } =e^{\sum_{i=1}^m \tau_i \phi_i(x) + \ln(  (\int_{\mathcal{X}} e^{\sum_{i=1}^m \tau_i\phi_i(x)} d\mu )^{-1} ) }
+=e^{\sum_{i=1}^m \tau_i \phi_i(x)}e^{\ln(  (\int_{\mathcal{X}} e^{\sum_{i=1}^m \tau_i\phi_i(x)} d\mu )^{-1} ) }
+=e^{\sum_{i=1}^m \tau_i \phi_i(x)}(\int_{\mathcal{X}} e^{\sum_{i=1}^m \tau_i\phi_i(x)} d\mu )^{-1}
+\)
+
+Which means that \(\ln(f(x)) = \ln(e^{\sum_{i=1}^m \tau_i \phi_i(x)}(\int_{\mathcal{X}} e^{\sum_{i=1}^m \tau_i\phi_i(x)} d\mu )^{-1} )
+= \ln(e^{\sum_{i=1}^m \tau_i\phi_i(x)}) - \ln( \int_{\mathcal{X}} e^{\sum_{i=1}^m \tau_i\phi_i(x)} d\mu )
+= \sum_{i=1}^m \tau_i\phi_i(x) - \ln( \int_{\mathcal{X}} e^{\sum_{i=1}^m \tau_i\phi_i(x)} d\mu )
+\)
+
+So \( f(x) = e^{\ln(f(x))} \implies \frac{d}{dx} f(x) = \frac{d}{dx} e^{\ln(f(x))} \implies \)
