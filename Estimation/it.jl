@@ -1,6 +1,5 @@
 include("SurfingInfo.jl")
 
-
 # Analysis on 
 ISOindex = Dict([ISOs[i]=>i for i in 1:length(ISOs)])
 Um = []

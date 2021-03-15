@@ -1,3 +1,4 @@
+using
 include("SymGrpAndReps.jl")
 
 diagSum = []
@@ -13,3 +14,4 @@ for k in 1:10
 	push!( excessDiagSum, sum(diag(G)) - minimum(G)*k )
 	push!( flatSum, minimum(G)*k^2)
 end
+
