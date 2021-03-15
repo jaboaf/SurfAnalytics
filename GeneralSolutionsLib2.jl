@@ -35,10 +35,6 @@ function PMatrix(τ::Array; inSnWithn=nothing)
     return p
 end
 
-function ∏(A::Array{Array})
-    all = Array[]
-    for a in A
-
 
 isoDict = Dict([  "Australia" => :AUS,
                 "Basque Country" => :ESP,
@@ -175,22 +171,34 @@ allPanelCompositions = unique( map(x->x.panelOrigs, waves))
 judOrigs = sort(collect(∪(allPanelCompositions...)))
 permGroup(judOrigs)
 densityOp = Dict([p=>0 for p in Base.product(judOrigs,judOrigs)])
+NatToIndex = Dict([orig => i for (i,orig) in enumerate(judOrigs) ])
+W = []
+consWave = []
+totalConsistentPanels = 0
 for panelComp in allPanelCompositions
     consistentPanels = 0
     for w in filter(x -> x.panelOrigs == panelComp, waves)
         e = sort(collect(panelComp))
+        waveMatrix = zeros(7,7)
         for ord in permGroup(collect(panelComp))
             S = Iterators.product([w.panel[c] for c in ord]...)
             if all(map(strictOrder, S) )
                 for (i,ei) in enumerate(e)
-                    densityOp[(ei,ord[i])] += 1
+                    waveMatrix[ NatToIndex[ei], NatToIndex[ ord[i]] ] = 1
                 end
                 consistentPanels +=1
+                push!(consWave, w)
+                push!(W, waveMatrix)
             end
         end
     end
-
+    totalConsistentPanels += consistentPanels
+    println(panelComp)
+    println(consistentPanels)
 end
+println(totalConsistentPanels)
+W
+T = reduce(+,W)
 
 D = zeros(7,7)
 for r in 1:7

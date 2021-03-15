@@ -34,7 +34,7 @@ function Sym(n::Integer)
     return P
 end
 
-function MatRep(τ::Array; inSnWithn=nothing)
+function P(τ::Array; inSnWithn=nothing)
     if inSnWithn==nothing
         M = zeros(Int16, length(τ),length(τ))
     else
