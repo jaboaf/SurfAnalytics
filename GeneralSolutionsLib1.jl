@@ -151,7 +151,6 @@ function PMatrix(τ::Array; inSnWithn=nothing)
     return p
 end
 
-
 # Beta given "friendliness" params
 # β = [ ... ] means "friendliness" of node i is β[i]
 # THIS IS NOT THE ACTUAL BETA MODEL
